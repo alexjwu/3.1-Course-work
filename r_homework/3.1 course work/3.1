@@ -1,0 +1,29 @@
+---
+title: '3.1'
+author: "Alex Wu"
+date: "June 29, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+1: Clean up brand names
+
+mutate(company = ifelse(grepl("^phil|^fil|^phl", company, ignore.case = TRUE), "philips", company)) %>% mutate(company = ifelse(grepl("^ak", company, ignore.case = TRUE), "akzo", company)) %>% mutate(company = ifelse(grepl("^van", company, ignore.case = TRUE), "van_houten", company)) %>% mutate(company = ifelse(grepl("^uni", company, ignore.case = TRUE), "unilever", company))
+
+2: Separate product code and number
+df <- df %>% separate(`Product code / number`, c("product_code", "product_number"), sep = "-")
+
+3: Add product categories
+df <- df %>% mutate(`product category` = ifelse(`product code` == "p", "smartphone", ifelse(`product code` == "v", "tv", ifelse(`product code` == "x", "laptop", ifelse(`product code` == "q", "tablet", "product code")))))
+
+4: Add full address for geocoding
+df <- df %>% unite(full_address, address, city, country, sep = ", ")
+
+5: Create dummy variables for company and product category
+df <- df %>% mutate(`company_akzo` = ifelse(`company` == "akzo", "1", "0")) %>% mutate(`company_phillips` = ifelse(`company` == "phillips", "1", "0")) %>% mutate(`company_van_houten` = ifelse(`company` == "van houten", "1", "0")) %>% mutate(`company_unilever` = ifelse(`company` == "unilever", "1", "0"))
+

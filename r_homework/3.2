@@ -1,0 +1,21 @@
+---
+title: '3.2'
+author: "Alex Wu"
+date: "June 29, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+df <- df %>% mutate(embarked = ifelse(is.na(embarked), "S", embarked))
+
+df <- df %>% mutate(age = ifelse(is.na(age), mean(df$age, na.rm = TRUE), age))
+
+df <- df %>% mutate(boat = ifelse(is.na(boat), "None", boat))
+
+df <- df %>% mutate(has_cabin_number = ifelse(is.na(cabin), 0, 1))

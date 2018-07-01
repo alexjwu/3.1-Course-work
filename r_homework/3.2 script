@@ -1,0 +1,11 @@
+
+
+
+df <- df %>% mutate(embarked = ifelse(is.na(embarked), "S", embarked))
+
+df <- df %>% mutate(age = ifelse(is.na(age), mean(df$age, na.rm = TRUE), age))
+
+df <- df %>% mutate(boat = ifelse(is.na(boat), "None", boat))
+
+df <- df %>% mutate(has_cabin_number = ifelse(is.na(cabin), 0, 1))
+
